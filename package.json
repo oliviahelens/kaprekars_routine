@@ -1,0 +1,13 @@
+{
+  "name": "kaprekars-constant-playground",
+  "version": "1.0.0",
+  "description": "An interactive playground for Kaprekar's Routine in any base and digit-count.",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node test/kaprekar.test.js",
+    "test:e2e": "node test/smoke.mjs",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": ["kaprekar", "6174", "number-theory", "recreational-mathematics", "visualization"]
+}

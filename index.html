@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kaprekar's Constant — Playground</title>
+    <meta
+      name="description"
+      content="An interactive playground for Kaprekar's Routine in any base and digit-count: step through the routine, watch numbers funnel into a constant, and explore iteration distributions."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">6174</div>
+        <div class="brand-text">
+          <h1>Kaprekar's Constant</h1>
+          <p>An interactive playground for Kaprekar's Routine in any base</p>
+        </div>
+      </div>
+      <a
+        class="paper-link"
+        href="https://arxiv.org/abs/1710.06308"
+        target="_blank"
+        rel="noopener"
+        title="The Base Dependent Behavior of Kaprekar's Routine (Hanover, 2017)"
+        >based on arXiv:1710.06308 ↗</a
+      >
+    </header>
+
+    <!-- shared controls -->
+    <section class="controls" aria-label="parameters">
+      <div class="control">
+        <label for="base">Base <span class="hint">b</span></label>
+        <div class="stepper-input">
+          <button data-nudge="base" data-delta="-1" aria-label="decrease base">−</button>
+          <input id="base" type="number" min="2" max="36" value="10" />
+          <button data-nudge="base" data-delta="1" aria-label="increase base">+</button>
+        </div>
+      </div>
+      <div class="control">
+        <label for="digits">Digits <span class="hint">L</span></label>
+        <div class="stepper-input">
+          <button data-nudge="digits" data-delta="-1" aria-label="fewer digits">−</button>
+          <input id="digits" type="number" min="2" max="8" value="4" />
+          <button data-nudge="digits" data-delta="1" aria-label="more digits">+</button>
+        </div>
+      </div>
+      <div class="control space-summary" id="space-summary">
+        <label>This space</label>
+        <div id="space-info" class="space-info">…</div>
+      </div>
+    </section>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="routine" role="tab">▶ Routine</button>
+      <button class="tab" data-tab="distribution" role="tab">▦ Distribution</button>
+      <button class="tab" data-tab="flow" role="tab">⤳ Flow Graph</button>
+      <button class="tab" data-tab="bases" role="tab">∑ Bases &amp; Theory</button>
+    </nav>
+
+    <main>
+      <!-- ===================== ROUTINE ===================== -->
+      <section class="panel active" id="panel-routine" role="tabpanel">
+        <div class="routine-controls">
+          <div class="control grow">
+            <label for="start">Starting number <span class="hint" id="start-hint">(base 10)</span></label>
+            <input id="start" type="text" value="3524" spellcheck="false" autocomplete="off" />
+          </div>
+          <div class="btn-row">
+            <button id="btn-run" class="primary">Run ▶</button>
+            <button id="btn-step">Step ⏭</button>
+            <button id="btn-random">Random ⤨</button>
+            <button id="btn-reset" class="ghost">Reset</button>
+          </div>
+        </div>
+        <div id="routine-status" class="routine-status"></div>
+        <div id="routine-steps" class="routine-steps"></div>
+      </section>
+
+      <!-- ===================== DISTRIBUTION ===================== -->
+      <section class="panel" id="panel-distribution" role="tabpanel">
+        <p class="panel-intro">
+          For every non-trivial <b id="dist-len">4</b>-digit number in base <b id="dist-base">10</b>, how many
+          applications of the routine does it take to reach the constant? Hanover's surprising result: the most
+          common answer is almost always <b>3</b>.
+        </p>
+        <div id="dist-chart" class="chart"></div>
+        <div class="overlay-toggle">
+          <label class="switch">
+            <input type="checkbox" id="overlay-bases" />
+            <span>Overlay even bases 4–36 (reproduces Fig. 4)</span>
+          </label>
+        </div>
+        <div id="dist-overlay" class="chart hidden"></div>
+      </section>
+
+      <!-- ===================== FLOW ===================== -->
+      <section class="panel" id="panel-flow" role="tabpanel">
+        <p class="panel-intro">
+          Every number flows toward the constant. Columns are grouped by distance from the constant (leftmost =
+          farthest); edge thickness shows how many integers travel each path. Try base 10 with 3 digits for the
+          classic 495 funnel.
+        </p>
+        <div id="flow-chart" class="chart flow"></div>
+      </section>
+
+      <!-- ===================== BASES & THEORY ===================== -->
+      <section class="panel" id="panel-bases" role="tabpanel">
+        <div class="theory">
+          <div class="card">
+            <h3>The 3-digit constant in any even base</h3>
+            <p>
+              Hanover derives a closed form: for an even base <i>b</i>, the unique 3-digit Kaprekar constant is
+            </p>
+            <p class="formula">( b/2 − 1 )( b − 1 )( b/2 )</p>
+            <p>
+              Plug in <i>b</i> = 10 and you get <b>4 · 9 · 5 = 495</b>. Odd bases have no 3-digit constant.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Why K(n) is always divisible by b − 1</h3>
+            <p>
+              Each digit pair contributes a factor of the form b<sup>x</sup> − b<sup>y</sup> =
+              b<sup>y</sup>(b − 1)(1 + b + … ), so the whole difference carries a factor of b − 1. The output of the
+              routine is <i>always</i> a multiple of the base minus one.
+            </p>
+          </div>
+          <div class="card">
+            <h3>3-digit recurrence</h3>
+            <p>
+              For any 3-digit number with largest−smallest digit gap <i>D</i>, one step gives
+              <span class="formula sm">( D−1 )( b−1 )( b−D )</span>. Each further step shrinks the outer-digit gap
+              by exactly 2 — so odd gaps march straight down to the constant and can never loop.
+            </p>
+          </div>
+        </div>
+        <h3 class="table-title">3-digit Kaprekar constants by even base</h3>
+        <div id="bases-table" class="bases-table"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span
+        >Built around <i>The Base Dependent Behavior of Kaprekar's Routine</i> (D. Hanover, 2017). The routine: sort
+        digits high &amp; low, subtract, repeat.</span
+      >
+    </footer>
+
+    <script src="js/kaprekar.js"></script>
+    <script src="js/viz.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

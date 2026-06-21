@@ -1,0 +1,9 @@
+# dependencies (Playwright is used globally for the smoke test, not vendored)
+node_modules/
+
+# test artifacts
+test/shot-*.png
+
+# editor / OS
+.DS_Store
+*.log
