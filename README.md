@@ -1,8 +1,6 @@
 # Kaprekar's Constant — Playground
 
 An interactive playground for **Kaprekar's Routine** in *any* base and digit-count.
-Type a number, watch it march to a fixed point, and explore the surprising
-regularities that show up across number bases.
 
 ![screenshot](docs/hero.png)
 
