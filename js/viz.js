@@ -172,6 +172,9 @@
 
     el("text", { class: "axis-title", x: pad.l + plotW / 2, y: H - 6, "text-anchor": "middle" }, svg).textContent =
       "iterations  ·  each base scaled to its own peak";
+    const oyt = el("text", { class: "axis-title", x: 15, y: pad.t + plotH / 2, "text-anchor": "middle" }, svg);
+    oyt.setAttribute("transform", `rotate(-90 15 ${pad.t + plotH / 2})`);
+    oyt.textContent = "count ÷ that base's peak";
   }
 
   // ---------------------------------------------------------------- flow graph

@@ -84,14 +84,16 @@
       <section class="panel" id="panel-distribution" role="tabpanel">
         <p class="panel-intro">
           For every non-trivial <b id="dist-len">4</b>-digit number in base <b id="dist-base">10</b>, how many
-          applications of the routine does it take to reach the constant? Hanover's surprising result: the most
-          common answer is almost always <b>3</b>.
+          applications of the routine does it take to reach the constant? The tallest bar — the
+          <b style="color:var(--accent)">mode</b>, called out at top-right — is the most common answer, and it
+          shifts with the base and digit count. Hanover's surprising result was specifically the <b>3-digit</b>
+          case: there the mode is <b>3</b> for every base above 4, which the overlay below reproduces.
         </p>
         <div id="dist-chart" class="chart"></div>
         <div class="overlay-toggle">
           <label class="switch">
             <input type="checkbox" id="overlay-bases" />
-            <span>Overlay even bases 4–36 (reproduces Fig. 4)</span>
+            <span>Overlay even bases 4–36, <b>3-digit</b> (reproduces Fig. 4)</span>
           </label>
         </div>
         <div id="dist-overlay" class="chart hidden"></div>
