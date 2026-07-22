@@ -1,18 +1,20 @@
 :root {
-  --bg: #0e1116;
-  --bg-soft: #161b22;
-  --bg-elev: #1c232d;
-  --line: #2a323d;
-  --line-soft: #222933;
-  --text: #e6edf3;
-  --text-dim: #9aa7b4;
-  --text-faint: #6b7785;
-  --accent: #f5b54a; /* kaprekar gold */
-  --accent-2: #5ec8f2; /* cool cyan */
-  --accent-3: #b388ff; /* violet, for cycles */
-  --danger: #ff6b6b;
-  --good: #4ade80;
-  --radius: 12px;
+  /* warm espresso ground + parchment ink, after oliviahelens.com */
+  --bg: #1d1813;
+  --bg-soft: #251f18;
+  --bg-elev: #2c251c;
+  --line: #3b3227;
+  --line-soft: #2f2820;
+  --text: #ece4d3;
+  --text-dim: #ab9f88;
+  --text-faint: #7a705d;
+  --accent: #c9a24e; /* antique gold — the one warm highlight */
+  --accent-2: #8ba0ae; /* dusty blue — a quiet cool counterpoint */
+  --accent-3: #b191a6; /* dusty mauve — cycles */
+  --danger: #cd8a6d; /* muted terracotta */
+  --good: #9aa97f;
+  --radius: 10px;
+  --serif: "EB Garamond", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -26,12 +28,22 @@ body {
   padding: 0;
 }
 body {
-  background: radial-gradient(1200px 600px at 80% -10%, #1a2230 0%, var(--bg) 55%) fixed;
+  background: radial-gradient(1100px 640px at 80% -14%, #2a2318 0%, var(--bg) 58%) fixed;
   color: var(--text);
-  font-family: var(--sans);
-  line-height: 1.5;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   min-height: 100vh;
+}
+a {
+  color: var(--text);
+  text-underline-offset: 3px;
+  text-decoration-color: var(--line);
+}
+a:hover {
+  text-decoration-color: var(--accent);
 }
 
 /* ---------- top bar ---------- */
@@ -39,7 +51,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 28px;
+  padding: 26px 32px 18px;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -50,44 +62,46 @@ body {
 }
 .logo {
   font-family: var(--mono);
-  font-weight: 700;
-  font-size: 26px;
+  font-weight: 600;
+  font-size: 20px;
   letter-spacing: 2px;
-  color: var(--bg);
-  background: linear-gradient(135deg, var(--accent), #f7d488);
-  padding: 10px 14px;
-  border-radius: 10px;
-  box-shadow: 0 6px 22px -8px var(--accent);
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 .brand-text h1 {
   margin: 0;
-  font-size: 21px;
-  letter-spacing: -0.3px;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 .brand-text p {
-  margin: 2px 0 0;
+  margin: 4px 0 0;
   color: var(--text-dim);
-  font-size: 13.5px;
+  font-size: 15px;
+  font-style: italic;
 }
 .paper-link {
-  color: var(--accent-2);
-  text-decoration: none;
-  font-size: 13px;
-  border: 1px solid var(--line);
-  padding: 7px 12px;
-  border-radius: 8px;
-  background: var(--bg-soft);
-  transition: border-color 0.15s, color 0.15s;
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+  font-size: 14.5px;
+  font-style: italic;
+  transition: color 0.15s, text-decoration-color 0.15s;
 }
 .paper-link:hover {
-  border-color: var(--accent-2);
+  color: var(--text);
+  text-decoration-color: var(--accent);
 }
 
 /* ---------- shared controls ---------- */
 .controls {
   display: flex;
-  gap: 18px;
-  padding: 6px 28px 18px;
+  gap: 20px;
+  padding: 8px 32px 20px;
   align-items: flex-end;
   flex-wrap: wrap;
 }
@@ -103,7 +117,7 @@ body {
 .control label {
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
   color: var(--text-faint);
   font-weight: 600;
 }
@@ -119,7 +133,7 @@ body {
   align-items: stretch;
   background: var(--bg-soft);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .stepper-input button {
@@ -161,16 +175,17 @@ input:focus {
 }
 .space-info {
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 13.5px;
   background: var(--bg-soft);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 9px 14px;
   min-width: 230px;
   color: var(--text-dim);
 }
 .space-info b {
   color: var(--accent);
+  font-weight: 600;
 }
 .space-info .cyc {
   color: var(--accent-3);
@@ -179,33 +194,38 @@ input:focus {
 /* ---------- tabs ---------- */
 .tabs {
   display: flex;
-  gap: 4px;
-  padding: 0 24px;
+  gap: 6px;
+  padding: 6px 28px 0;
   border-bottom: 1px solid var(--line-soft);
   flex-wrap: wrap;
 }
 .tab {
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
+  border-bottom: none;
   color: var(--text-dim);
-  font-size: 14.5px;
+  font-family: var(--serif);
+  font-size: 16.5px;
   font-weight: 500;
-  padding: 12px 16px;
+  padding: 9px 16px;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: -1px;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
 .tab:hover {
   color: var(--text);
 }
 .tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--text);
+  background: var(--bg-elev);
+  border-color: var(--line);
+  border-bottom-color: var(--bg-elev);
 }
 
 /* ---------- panels ---------- */
 main {
-  padding: 24px 28px 40px;
+  padding: 26px 32px 40px;
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -228,12 +248,14 @@ main {
 }
 .panel-intro {
   color: var(--text-dim);
-  font-size: 14.5px;
-  max-width: 720px;
-  margin: 0 0 18px;
+  font-size: 16.5px;
+  line-height: 1.55;
+  max-width: 680px;
+  margin: 0 0 20px;
 }
 .panel-intro b {
   color: var(--text);
+  font-weight: 600;
 }
 
 /* ---------- routine ---------- */
@@ -247,7 +269,7 @@ main {
 .routine-controls .control input[type="text"] {
   background: var(--bg-soft);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--text);
   font-family: var(--mono);
   font-size: 18px;
@@ -266,24 +288,25 @@ button.primary,
 button.ghost,
 #btn-step,
 #btn-random {
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 11px 18px;
-  border-radius: 10px;
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 500;
+  padding: 9px 18px;
+  border-radius: 8px;
   cursor: pointer;
   border: 1px solid var(--line);
   background: var(--bg-elev);
   color: var(--text);
-  transition: transform 0.08s, border-color 0.15s, background 0.15s;
+  transition: transform 0.08s, border-color 0.15s, background 0.15s, color 0.15s;
 }
 button.primary {
-  background: linear-gradient(135deg, var(--accent), #f7cf83);
-  color: #1a1205;
-  border-color: transparent;
+  background: var(--accent);
+  color: #221a0b;
+  border-color: var(--accent);
+  font-weight: 600;
 }
 button.primary:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.06);
 }
 button.ghost {
   background: transparent;
@@ -303,7 +326,7 @@ button:disabled {
 .routine-status {
   min-height: 26px;
   margin-bottom: 14px;
-  font-size: 15px;
+  font-size: 16.5px;
   color: var(--text-dim);
 }
 .routine-status .win {
@@ -346,7 +369,7 @@ button:disabled {
 }
 .step-row.is-constant {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent), 0 8px 30px -14px var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 8px 30px -16px var(--accent);
 }
 .step-row.is-cycle {
   border-color: var(--accent-3);
@@ -377,18 +400,19 @@ button:disabled {
   place-items: center;
   background: var(--bg-elev);
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: 6px;
+  color: var(--text);
 }
 .digit.hi {
-  border-color: rgba(94, 200, 242, 0.5);
+  border-color: rgba(139, 160, 174, 0.55);
   color: var(--accent-2);
 }
 .digit.lo {
-  border-color: rgba(255, 107, 107, 0.4);
-  color: #ff9d9d;
+  border-color: rgba(205, 138, 109, 0.5);
+  color: var(--danger);
 }
 .digit.res {
-  background: linear-gradient(180deg, var(--bg-elev), #21272f);
+  background: linear-gradient(180deg, var(--bg-elev), #241d15);
 }
 .op {
   font-family: var(--mono);
@@ -414,7 +438,7 @@ button:disabled {
   border-color: var(--accent);
 }
 .step-row.is-constant .result-block .digit {
-  background: linear-gradient(180deg, #2a2310, #1c1708);
+  background: linear-gradient(180deg, #2c2410, #1e1809);
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -448,7 +472,7 @@ button:disabled {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 13.5px;
+  font-size: 15px;
   color: var(--text-dim);
   cursor: pointer;
 }
@@ -503,24 +527,26 @@ button:disabled {
   background: var(--bg-soft);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  padding: 20px 22px;
 }
 .card h3 {
   margin: 0 0 10px;
-  font-size: 15.5px;
-  color: var(--accent);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--text);
 }
 .card p {
   margin: 0 0 10px;
   color: var(--text-dim);
-  font-size: 14px;
+  font-size: 15.5px;
+  line-height: 1.55;
 }
 .card p:last-child {
   margin-bottom: 0;
 }
 .formula {
   font-family: var(--mono);
-  font-size: 17px;
+  font-size: 16px;
   color: var(--text);
   background: var(--bg);
   border: 1px solid var(--line);
@@ -530,11 +556,12 @@ button:disabled {
 }
 .formula.sm {
   display: inline-block;
-  font-size: 14px;
+  font-size: 13.5px;
   padding: 2px 8px;
 }
 .table-title {
-  font-size: 16px;
+  font-size: 21px;
+  font-weight: 600;
   margin: 8px 0 14px;
 }
 .bases-table {
@@ -545,7 +572,7 @@ button:disabled {
 .base-cell {
   background: var(--bg-soft);
   border: 1px solid var(--line-soft);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 12px 14px;
   cursor: pointer;
   transition: border-color 0.15s, transform 0.08s;
@@ -593,13 +620,28 @@ button:disabled {
 /* ---------- footer ---------- */
 footer {
   border-top: 1px solid var(--line-soft);
-  padding: 18px 28px;
+  padding: 20px 32px;
   color: var(--text-faint);
-  font-size: 12.5px;
+  font-size: 14px;
+  font-style: italic;
   text-align: center;
 }
 
 @media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+  .topbar,
+  .controls,
+  .tabs,
+  main,
+  footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .brand-text h1 {
+    font-size: 25px;
+  }
   .controls {
     gap: 12px;
   }

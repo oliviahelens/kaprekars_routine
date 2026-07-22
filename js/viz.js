@@ -146,7 +146,13 @@
       el("text", { class: "axis-label", x, y: pad.t + plotH + 20, "text-anchor": "middle" }, svg).textContent = k;
     }
 
-    const hue = (i) => `hsl(${(i * 47) % 360} 70% 60%)`;
+    // muted, warm-leaning palette so the overlay reads like a print, not a rainbow
+    const PALETTE = [
+      "#c9a24e", "#8ba0ae", "#b191a6", "#cd8a6d", "#9aa97f", "#d8bd7a",
+      "#7f93a3", "#bd9d7e", "#a88bb0", "#8faa9a", "#cf9f88", "#9aa877",
+      "#c2a15e", "#8a9fb2", "#b58f9c", "#7d9e8f",
+    ];
+    const hue = (i) => PALETTE[i % PALETTE.length];
     series.forEach((s, idx) => {
       const peak = Math.max(...s.counts);
       let d = "";
@@ -298,7 +304,7 @@
               cx: p.x,
               cy: p.y,
               r,
-              fill: isConst ? "var(--accent)" : "#243041",
+              fill: isConst ? "var(--accent)" : "#342b20",
               stroke: isConst ? "var(--accent)" : "var(--accent-2)",
               "stroke-width": 2,
               "fill-opacity": 1,
