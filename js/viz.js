@@ -146,11 +146,11 @@
       el("text", { class: "axis-label", x, y: pad.t + plotH + 20, "text-anchor": "middle" }, svg).textContent = k;
     }
 
-    // muted, warm-leaning palette so the overlay reads like a print, not a rainbow
+    // medium-tone muted palette that reads on both the light and dark grounds
     const PALETTE = [
-      "#c9a24e", "#8ba0ae", "#b191a6", "#cd8a6d", "#9aa97f", "#d8bd7a",
-      "#7f93a3", "#bd9d7e", "#a88bb0", "#8faa9a", "#cf9f88", "#9aa877",
-      "#c2a15e", "#8a9fb2", "#b58f9c", "#7d9e8f",
+      "#b0862f", "#4f6f82", "#7d5f88", "#a3543f", "#5f7a4e", "#3f7c86",
+      "#9c6f52", "#7a6ca3", "#a86f8f", "#6a8a6f", "#8f6f3f", "#4f6f9c",
+      "#9a5f7a", "#6f8552", "#86766a", "#5f8a86",
     ];
     const hue = (i) => PALETTE[i % PALETTE.length];
     series.forEach((s, idx) => {
@@ -304,7 +304,7 @@
               cx: p.x,
               cy: p.y,
               r,
-              fill: isConst ? "var(--accent)" : "#342b20",
+              fill: isConst ? "var(--accent)" : "var(--bg-elev)",
               stroke: isConst ? "var(--accent)" : "var(--accent-2)",
               "stroke-width": 2,
               "fill-opacity": 1,
@@ -314,7 +314,7 @@
           if (showLabels || isConst) {
             el(
               "text",
-              { x: p.x, y: p.y + 4, "text-anchor": "middle", fill: isConst ? "#1a1205" : "var(--text)" },
+              { x: p.x, y: p.y + 4, "text-anchor": "middle", fill: isConst ? "var(--accent-ink)" : "var(--text)" },
               g
             ).textContent = K.format(n.value, base, len);
           }

@@ -1,26 +1,63 @@
+/* Kaprekar playground — styled to match oliviahelens.com (tokens, type, both themes). */
+
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local("Iowan Old Style"), local("EB Garamond"),
+    url("https://fonts.gstatic.com/s/ebgaramond/v30/SlGDmQSNjdsmc35JDF1K5FRyRQ.woff2") format("woff2");
+}
+
 :root {
-  /* warm espresso ground + parchment ink, after oliviahelens.com */
-  --bg: #1d1813;
-  --bg-soft: #251f18;
-  --bg-elev: #2c251c;
-  --line: #3b3227;
-  --line-soft: #2f2820;
-  --text: #ece4d3;
-  --text-dim: #ab9f88;
-  --text-faint: #7a705d;
-  --accent: #c9a24e; /* antique gold — the one warm highlight */
-  --accent-2: #8ba0ae; /* dusty blue — a quiet cool counterpoint */
-  --accent-3: #b191a6; /* dusty mauve — cycles */
-  --danger: #cd8a6d; /* muted terracotta */
-  --good: #9aa97f;
+  /* light (default) — oliviahelens.com light theme */
+  --bg: #fbfaf7;
+  --bg-soft: #f3f0e9;
+  --bg-elev: #ebe7dc;
+  --line: #d8d4cb; /* her --rule */
+  --line-soft: #e6e2d8;
+  --text: #1a1a1a; /* her --fg */
+  --text-dim: #6b6b6b; /* her --muted */
+  --text-faint: #9a968b;
+  --accent: #9a7420; /* the one deliberate accent — deep gold for the constant */
+  --accent-ink: #fbfaf7; /* text on an accent fill */
+  --accent-tint: #efe6cd; /* faint gold wash behind the constant digit */
+  --accent-2: #4f6f82; /* muted slate — "descending" digit / secondary bars */
+  --accent-3: #7d5f88; /* dusty mauve — cycles */
+  --danger: #a3543f; /* muted terracotta — "ascending" digit / errors */
+  --good: #5f7a4e;
   --radius: 10px;
-  --serif: "EB Garamond", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --serif: "Iowan Old Style", "EB Garamond", Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1611;
+    --bg-soft: #211c15;
+    --bg-elev: #282218;
+    --line: #2e2c26; /* her --rule */
+    --line-soft: #262420;
+    --text: #ece7dc; /* her --fg */
+    --text-dim: #8e8a80; /* her --muted */
+    --text-faint: #6f6b60;
+    --accent: #c9a24e;
+    --accent-ink: #221a0b;
+    --accent-tint: #2c2410;
+    --accent-2: #8ba0ae;
+    --accent-3: #b191a6;
+    --danger: #cd8a6d;
+    --good: #9aa97f;
+  }
 }
 
 * {
   box-sizing: border-box;
+}
+html {
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 html,
 body {
@@ -28,22 +65,20 @@ body {
   padding: 0;
 }
 body {
-  background: radial-gradient(1100px 640px at 80% -14%, #2a2318 0%, var(--bg) 58%) fixed;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--serif);
-  font-size: 17px;
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
   min-height: 100vh;
 }
 a {
   color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
   text-underline-offset: 3px;
-  text-decoration-color: var(--line);
 }
 a:hover {
-  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
 }
 
 /* ---------- top bar ---------- */
@@ -74,8 +109,9 @@ a:hover {
 .brand-text h1 {
   margin: 0;
   font-size: 30px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 .brand-text p {
   margin: 4px 0 0;
@@ -87,6 +123,7 @@ a:hover {
   color: var(--text-dim);
   text-decoration: underline;
   text-decoration-color: var(--line);
+  text-decoration-thickness: 0.5px;
   text-underline-offset: 3px;
   font-size: 14.5px;
   font-style: italic;
@@ -94,7 +131,7 @@ a:hover {
 }
 .paper-link:hover {
   color: var(--text);
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--text-dim);
 }
 
 /* ---------- shared controls ---------- */
@@ -295,24 +332,23 @@ button.ghost,
   border-radius: 8px;
   cursor: pointer;
   border: 1px solid var(--line);
-  background: var(--bg-elev);
-  color: var(--text);
+  background: transparent;
+  color: var(--text-dim);
   transition: transform 0.08s, border-color 0.15s, background 0.15s, color 0.15s;
+}
+button:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
 }
 button.primary {
   background: var(--accent);
-  color: #221a0b;
+  color: var(--accent-ink);
   border-color: var(--accent);
   font-weight: 600;
 }
 button.primary:hover {
   filter: brightness(1.06);
-}
-button.ghost {
-  background: transparent;
-  color: var(--text-dim);
-}
-button:hover {
+  color: var(--accent-ink);
   border-color: var(--accent);
 }
 button:active {
@@ -404,15 +440,15 @@ button:disabled {
   color: var(--text);
 }
 .digit.hi {
-  border-color: rgba(139, 160, 174, 0.55);
+  border-color: var(--accent-2);
   color: var(--accent-2);
 }
 .digit.lo {
-  border-color: rgba(205, 138, 109, 0.5);
+  border-color: var(--danger);
   color: var(--danger);
 }
 .digit.res {
-  background: linear-gradient(180deg, var(--bg-elev), #241d15);
+  background: var(--bg-elev);
 }
 .op {
   font-family: var(--mono);
@@ -438,7 +474,7 @@ button:disabled {
   border-color: var(--accent);
 }
 .step-row.is-constant .result-block .digit {
-  background: linear-gradient(180deg, #2c2410, #1e1809);
+  background: var(--accent-tint);
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -532,7 +568,7 @@ button:disabled {
 .card h3 {
   margin: 0 0 10px;
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
 }
 .card p {
@@ -561,7 +597,7 @@ button:disabled {
 }
 .table-title {
   font-size: 21px;
-  font-weight: 600;
+  font-weight: 700;
   margin: 8px 0 14px;
 }
 .bases-table {
@@ -610,7 +646,7 @@ button:disabled {
   font-size: 12.5px;
   font-family: var(--mono);
   color: var(--text);
-  box-shadow: 0 10px 30px -10px #000;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 0.1s;
   z-index: 50;
@@ -628,7 +664,7 @@ footer {
 }
 
 @media (max-width: 640px) {
-  body {
+  html {
     font-size: 16px;
   }
   .topbar,
